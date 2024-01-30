@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model TeaPost.Areas.Tea.Models.TeaModel;
+
+<div class="container border border-gray rounded p-5 shadow">
+
+    <h2><i class="bi bi-gear me-2 pb-5" style="font-size: 25px"></i>Tea</h2>
+
+    <hr />
+
+    <form class="pt-3" method="post" asp-area="Tea" asp-controller="Tea" asp-action="SaveTea">
+
+        <div class="col my-4">
+            <label>Tea Name</label>
+            <input type="text" class="form-control" asp-for="TeaName" placeholder="Tea Name" aria-label="First name">
+            <span asp-validation-for="TeaName" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Tea Image Link</label>
+            <input type="text" class="form-control" asp-for="TeaImage" placeholder="Image Link" aria-label="Last name">
+            <span asp-validation-for="TeaImage" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Tea Price</label>
+            <input type="text" class="form-control" asp-for="Price" placeholder="Tea Price" aria-label="Last name">
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Brief Description</label>
+            <input type="text" class="form-control" asp-for="BriefDescription" placeholder="Brief description of Tea" aria-label="Last name">
+            <span asp-validation-for="BriefDescription" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Weight</label>
+            <input type="text" class="form-control" asp-for="Weight" placeholder="Weight" aria-label="Last name">
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Stock</label>
+            <input type="text" class="form-control" asp-for="Stock" placeholder="Stock" aria-label="Last name">
+            <span asp-validation-for="Stock" class="text-danger"></span>
+        </div>
+
+        <div class="col my-4">
+            <label>Description</label>
+            <input type="text" class="form-control" asp-for="Description" placeholder="Description of tea" aria-label="Last name">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        @* @Html.DropDownListFor(TeaModel => TeaModel.ShopID, new SelectList(db.Tea)) *@
+
+        @* @Html.DropDownList("ShopID", null, htmlAttributes: new { @class = "form-control" }) *@
+
+        <div class="col my-4 form-group">
+            <lable>Shop</lable>
+            <select class="form-control" asp-for="ShopID" asp-items="@(new SelectList(ViewBag.ShopList,"ShopID","ShopName"))"><option>Select Shop</option></select>
+            <span asp-validation-for="ShopID" class="text-danger"></span>
+        </div>
+
+        <div class="col mt-4">
+
+            <input type="hidden" asp-for="TeaID" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+        </div>
+
+    </form>
+
+    <div class="col mt-4 text-end ms-auto">
+
+        <a asp-area="Tea" asp-controller="Tea" asp-action="TeaList">
+            <button class="btn btn-success" type="submit">Back</button>
+        </a>
+
+    </div>
+
+</div>
