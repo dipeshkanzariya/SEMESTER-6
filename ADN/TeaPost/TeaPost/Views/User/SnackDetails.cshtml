@@ -1,0 +1,190 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Tea_Post.cshtml";
+}
+@using System.Data;
+
+<style>
+
+    .card-container {
+        width: 1100px;
+        height: 400px;
+    }
+
+    .card-img-container {
+        width: 400px;
+        height: 100%;
+        position: relative;
+        border-radius: 30px;
+        overflow: hidden;
+    }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;
+        }
+
+    .card-right-container {
+        width: 700px;
+        height: 100%;
+    }
+
+    .price-container {
+        font-weight: 700;
+        font-size: 20px;
+        color: rgba(10, 100, 60, 0.8);
+    }
+
+    .brief-description-container {
+        color: rgba(0, 0, 0, 0.8);
+    }
+
+    .button {
+        background-color: #065e2c;
+        padding: 8px 30px;
+        color: #efefef;
+        border: 2px solid #065e2c;
+        border-radius: 20px;
+        transition: all 0.2s linear;
+    }
+
+        .button:hover {
+            background-color: #010101;
+            color: #efefef;
+            border: 2px solid #efefef;
+        }
+
+    .linedivider {
+        background: rgb(30,100,20);
+        content: close-quote;
+        width: 2px;
+        height: 100px;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        box-sizing: inherit;
+    }
+
+</style>
+
+@foreach (DataRow dr in Model.Rows)
+{
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-2 text-dark mb-4 animated slideInDown">@dr["SnackName"]</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item"><a href="#">Snack</a></li>
+                    <li class="breadcrumb-item text-dark" aria-current="page">@dr["SnackName"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container">
+        <div class="card-container d-flex my-4 mx-auto">
+            <div class="card-img-container">
+                <img src="@dr["SnackImage"]" />
+            </div>
+            <div class="card-right-container mx-3 my-3">
+                <div>
+                    <div class="card-body">
+                        <h3 class="fw-bolder fs-2">@dr["SnackName"]</h3>
+                        <p class="price-container"><i class="bi bi-currency-rupee"></i>@dr["Price"]</p>
+                        <p class="brief-description-container">@dr["BriefDescription"]</p>
+                        <p><span class="fw-bolder text-dark">Size : </span>@dr["Size"] Pack Combo</p>
+                        <p>
+                            <span class="fw-bold">Qty : </span>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                <button class="btn btn-link px-2"
+                                        onclick="decreaseQuantity()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+
+                                <input id="quantityInput" min="0" name="Quantity" value="1" type="number"
+                                       class="form-control form-control-sm" />
+
+                                <button class="btn btn-link px-2"
+                                        onclick="increaseQuantity()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </p>
+                        <div class="d-flex gap-2">
+                            <form id="cartForm" asp-controller="User" asp-action="CartInsert" onsubmit="updateQuantity()">
+                                <input type="hidden" name="SnackID" value="@Convert.ToInt32(dr["SnackID"])" />
+                                <input id="cartSnackIDInput" type="hidden" name="Quantity" />
+                                <input type="submit" class="button" value="ADD TO CART" />
+                            </form>
+
+                            <form id="orderForm" asp-controller="User" asp-action="OrderDetails" onsubmit="updateQuantity()">
+                                <input type="hidden" name="SnackID" value="@Convert.ToInt32(dr["SnackID"])" />
+                                <input id="orderSnackIDInput" type="hidden" name="Quantity" />
+                                <input type="submit" class="button" value="ORDER NOW" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h2 style="border-bottom:6px double;
+                        display: inline-block;
+                           color: rgb(30,100,20);
+                            margin-top: 80px;
+                                 ">
+                DESCRIPTION
+            </h2>
+            <p class="my-4" style="text-align:justify">@dr["Description"]</p>
+        </div>
+        <div style="border-bottom: 2px solid rgba(30,100,20,0.3); margin:20px 0px"></div>
+        <div>
+            <h2 style="border-bottom:6px double;
+                        display: inline-block;
+                        color:rgb(30,100,20)">
+                ADDITIONAL INFORMATION
+            </h2>
+            <p class="my-4"><span class="fw-bolder">Size : </span>@dr["Size"] Pack Combo</p>
+        </div>
+    </div>
+    <div class="linedivider">
+    </div>
+}
+
+@section Scripts {
+
+    <script>
+        window.setTimeout(function () {
+
+            $(".alert").fadeTo(3000, 0).slideUp(500, function () {
+                $("this").remove();
+            }, 3000);
+
+        })
+
+        function decreaseQuantity() {
+            var quantityInput = document.getElementById('quantityInput');
+            if (parseInt(quantityInput.value) > 0) {
+                quantityInput.stepDown();
+            }
+        }
+
+        function increaseQuantity() {
+            var quantityInput = document.getElementById('quantityInput');
+            quantityInput.stepUp();
+        }
+
+        function updateQuantity() {
+            var quantity = document.getElementById('quantityInput').value;
+            document.getElementById('cartSnackIDInput').value = quantity;
+            document.getElementById('orderSnackIDInput').value = quantity;
+        }
+
+    </script>
+}

@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Tea_Post.cshtml";
+}
+
+@using System.Data;
+
+<section class="h-100 mt-5">
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-normal mb-0 text-black">Orders</h3>
+                </div>
+
+                @if(Model.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in Model.Rows)
+                    {
+                        <div class="card rounded-3 mb-4" style="background-color: #eee;">
+                            <div class="card-body p-4">
+                                <div class="row d-flex justify-content-between align-items-center">
+                                    <div class="col-md-2 col-lg-2 col-xl-2">
+                                        <img src="@dr["FoodImage"]"
+                                             class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                    </div>
+                                    <div class="col-md-3 col-lg-3 col-xl-3">
+                                        <p class="lead fw-normal mb-2">@dr["FoodName"]</p>
+                                        <p><span class="text-muted">Weight or Size : </span>@dr["WeightOrSize"]</p>
+                                    </div>
+                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                        <h5 class="mb-0">Qty : @dr["Quantity"]</h5>
+                                    </div>
+                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                        <h5 class="mb-0"><i class="bi bi-currency-rupee"></i>@dr["TotalAmount"]</h5>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-xl-1 text-center ">
+                                        <button type="button" class="btn btn-danger p-2 fw-bold">@dr["OrderStatus"]</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="card rounded-3 mb-4 justify-content-between align-items-center" style="background-color: #eee;">
+                        <div class="card-body p-4">
+                            <div class="row justify-content-between align-items-center" style=" height: 400px;">
+                                <h2 style="opacity: 0.5;">No Data Found !!</h2>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>

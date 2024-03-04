@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Data;
+@model System.Data.DataTable;
+
+<style>
+
+    .line {
+        width: 50%;
+        height: 1px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-container {
+        width: 100%;
+        height: 70px;
+    }
+
+</style>
+
+<div class="alert-container">
+
+    @if (TempData["Data"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Data"]
+        </div>
+    }
+
+</div>
+
+<div class="pagetitle my-2 mx-2">
+    <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Order</li>
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<div class="border rounded p-5 shadow">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h5 class="fw-bold"><i class="bi bi-gear me-2" style="font-size: 20px"></i>ORDER LIST</h5>
+       @*  <a asp-area="Order" asp-controller="Order" asp-action="OrderEdit">
+            <button class="btn bg-success text-white py-2"><i class="bi bi-plus-circle me-2"></i>ADD COUNTRY</button>
+        </a> *@
+
+    </div>
+
+    <hr />
+
+    @*<div class="border border-dark rounded ps-3 pe-5 py-2 ms-auto w-25 my-3">
+
+    Search here
+
+    </div>*@
+
+    @*<input type="text" placeholder="Search here" class="border border-dark d-block rounded ps-3 pe-5 py-2 ms-auto my-3" />*@
+
+    <form asp-area="Order" asp-controller="Order">
+        <div class="row">
+            <div class="w-25 ms-auto my-3">
+                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                <div class="input-group">
+                    <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
+                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Search User Name here">
+                    @* <input type="hidden" name="CountryName" value="CountryName" />*@
+                </div>
+            </div>
+
+            <div class="w-25 my-3">
+                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                <div class="input-group">
+                    <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
+                    <input type="date" class="form-control" id="FromDate" name="FromDate" placeholder="From date : dd-mm-yyyy">
+                    @*<input type="hidden" name="CountryCode" value="CountryCode" />*@
+                </div>
+            </div>
+            
+            <div class="w-25 my-3">
+                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                <div class="input-group">
+                    <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
+                    <input type="date" class="form-control" id="ToDate" name="ToDate" placeholder="To date : dd-mm-yyyy">
+                    @*<input type="hidden" name="CountryCode" value="CountryCode" />*@
+                </div>
+            </div>
+
+            <div class="w-auto my-3">
+                <div class="input-group">
+                    <input type="submit" asp-action="PR_ORDER_FILTER" class="btn btn-primary" id="" value="Apply Filter">
+                </div>
+            </div>
+
+            <div class="w-auto my-3">
+                <div class="input-group">
+                    <input type="submit" asp-action="OrderList" class="btn text-white" style="background-color: rgba(10 , 10 , 10 , 0.5)" id="" value="Clear Filter">
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="line ms-auto my-3"></div>
+
+    <div>
+        <div class="w-25 ms-auto my-3 col">
+            <p class="text-secondary">
+                <span class="ms-1 me-2">&#x2022</span> Search With JQuery
+            </p>
+            <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+            <div class="input-group">
+                <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
+                <input type="text" class="form-control" id="myInput" placeholder="Search here">
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+
+        <table class="table table-striped table-bordered table-responsive">
+            <thead>
+                <tr>
+                    @*<th scope="col">CountryId</th>*@
+                    <th scope="col" class="text-center">Food Name</th>
+                    <th scope="col" class="text-center">Food Price</th>
+                    <th scope="col" class="text-center">Quantity</th>
+                    <th scope="col" class="text-center">Weight Or Size</th>
+                    <th scope="col" class="text-center">Total Amount</th>
+                    <th scope="col" class="text-center">Order Address</th>
+                    <th scope="col" class="text-center">Order Status</th>
+                    <th scope="col" class="text-center">User Name</th>
+                    <th scope="col" class="text-center">Created</th>
+                    <th scope="col" class="text-center">Modified</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+
+                @foreach (DataRow dr in Model.Rows)
+                {
+
+                    <tr>
+                        @*<td class="text-center">@dr["CountryID"]</td>*@
+                        <td class="text-center">@dr["FoodName"]</td>
+                        <td class="text-center">@dr["Price"]</td>
+                        <td class="text-center">@dr["Quantity"]</td>
+                        <td class="text-center">@dr["WeightOrSize"]</td>
+                        <td class="text-center">@dr["TotalAmount"]</td>
+                        <td class="text-center">@dr["OrderAddress"]</td>
+                        <td class="text-center">@dr["OrderStatus"]</td>
+                        <td class="text-center">@dr["UserName"]</td>
+                        <td class="text-center">@dr["Created"]</td>
+                        <td class="text-center">@dr["Modified"]</td>
+                        <td class="text-center d-flex justify-content-center align-items-center">
+
+                            <form method="post" asp-area="Order" asp-controller="Order" asp-action="OrderEdit">
+                                <input type="hidden" name="OrderID" value="@Convert.ToInt32(@dr["OrderID"])" />
+                                <button type="submit" class="btn btn-primary py-1 me-2"><i class="bi bi-pen" style="font-size: 14px"></i></button>
+                            </form>
+                            @* <form method="post" asp-area="Order" asp-controller="LOC_Country" asp-action="DeleteCountry">
+                                <input type="hidden" name="CountryID" value="@Convert.ToInt32(@dr["OrderID"])" />
+                                <button type="submit" onclick="return DeleteItem()" class="btn btn-danger py-1"><i class="bi bi-trash" style="font-size: 14px"></i></button>
+                            </form> *@
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            //alert("Hello");
+            $("#myInput").on("keyup", function () {
+                //alert("Function");
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        function DeleteItem() {
+            if (confirm("Are you sure you want to delete ...?")) {
+                return true;
+            }
+            return false;
+        }
+
+        window.setTimeout(function () {
+
+            $(".alert").fadeTo(3000, 0).slideUp(500, function () {
+                $("this").remove();
+            }, 3000);
+
+        })
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = String(today.getMonth() + 1).padStart(2, '0');
+        var day = String(today.getDate()).padStart(2, '0');
+
+        // Set the default value of the input field with id "FromDate" to today's date
+        document.getElementById("FromDate").value = `${year}-${month}-${day}`;
+
+        // Set the default value of the input field with id "ToDate" to today's date
+        document.getElementById("ToDate").value = `${year}-${month}-${day}`;
+
+    </script>
+
+}

@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model TeaPost.Areas.Order.Models.OrderModel;
+
+<div class="container border border-gray rounded p-5 shadow">
+
+    <h2><i class="bi bi-gear me-2 pb-5" style="font-size: 25px"></i>Order</h2>
+
+    <hr />
+
+    <form class="pt-3" method="post" asp-area="Order" asp-controller="Order" asp-action="UpdateOrder">
+
+        <div class="col my-4">
+            <span class="text-danger">*</span>
+            <label>Order Status</label>
+            <input type="text" class="form-control" asp-for="OrderStatus" placeholder="Order Status" aria-label="Last name">
+            <span asp-validation-for="OrderStatus" class="text-danger"></span>
+        </div>
+
+        <div class="col mt-4">
+
+            <input type="hidden" asp-for="OrderID" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+        </div>
+
+    </form>
+
+    <div class="col mt-4 text-end ms-auto">
+
+        <a asp-area="Order" asp-controller="Order" asp-action="OrderList">
+            <button class="btn btn-success" type="submit">Back</button>
+        </a>
+
+    </div>
+
+</div>

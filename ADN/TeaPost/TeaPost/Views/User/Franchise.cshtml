@@ -1,0 +1,188 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Tea_Post.cshtml";
+}
+
+@model TeaPost.Areas.Franchise.Models.FranchiseModel;
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-dark mb-4 animated slideInDown">Franchise</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-dark" aria-current="page">Franchise</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+
+
+<div class="container border border-gray rounded p-5 mt-5 shadow">
+
+    <h2><i class="bi bi-gear me-2 pb-5" style="font-size: 25px"></i>Franchise</h2>
+
+    <hr />
+
+    <form class="pt-3 row g-3" method="post" asp-controller="User" asp-action="InsertFranchise">
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>First Name</label>
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" aria-label="First name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Last Name</label>
+            <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" aria-label="Last name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>Mobile No.</label>
+            <input type="text" class="form-control" asp-for="MobileNo" placeholder="Mobile No" aria-label="Mobile No">
+            <span asp-validation-for="MobileNo" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Email</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="Email" aria-label="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Birth Date</label>
+            <input type="date" class="form-control" asp-for="BirthDate" placeholder="Birth Date" aria-label="Birth Date">
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Gender</label>
+            <div class="d-flex">
+                <label class="d-flex form-control" for="male">
+                    <input type="radio" id="male" asp-for="Gender" value="Male" checked />
+                    <span class="ms-3">Male</span>
+                </label>
+                <label class="d-flex form-control ms-4" for="female">
+                    <input type="radio" id="female" asp-for="Gender" value="Female" />
+                    <span class="ms-3">Female</span>
+                </label>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <span class="text-danger">*</span>
+            <label>Address</label>
+            <input type="textArea" class="form-control" asp-for="Address" placeholder="Address" aria-label="Address">
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Country Name</label>
+            <select class="form-control" onchange="funcOnStateChange()" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+                <option>Select Country</option>
+            </select>
+            <span asp-validation-for="CityName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>State</label>
+            <select class="form-control" onchange="FuncOnCityChange()" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList, "StateID", "StateName"))">
+                <option value="">Select State</option>
+            </select>
+            <span asp-validation-for="StateID" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>City</label>
+            <select class="form-control" asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList, "CityID", "CityName"))">
+                <option value="">Select City</option>
+            </select>
+            <span asp-validation-for="CityID" class="text-danger"></span>
+        </div>
+
+        <div class="col mt-4">
+
+            <input type="hidden" asp-for="FID" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+        </div>
+
+    </form>
+
+
+</div>
+
+<script>
+    function funcOnStateChange() {
+        var CountryID = $("#CountryID").val();
+
+        $("#StateID").empty();
+        $("#StateID").append($("<option></option>").val("").html("Select State"));
+        if (CountryID !== "") {
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("StatesForComboBox", "LOC_City", new { area = "City" })" + "?&CountryID=" + CountryID,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+
+                        $.each(Result, function (key, value) {
+
+                            $("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
+                        });
+                    },
+                    error: function (err) {
+                        alert("Error white fetch data");
+                    }
+
+                }
+            )
+        }
+    }
+
+    function FuncOnCityChange() {
+        var StateID = $("#StateID").val();
+
+        $("#CityID").empty();
+        $("#CityID").append($("<option></option>").val("").html("Select City"));
+        if (StateID !== "") {
+            $.ajax(
+                {
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("LOC_CityForComboBox", "Franchise", new { area = "Franchise" })" + "?&StateID=" + StateID,
+                    data: {},
+                    dataType: "json",
+                    success: function (Result) {
+
+                        $.each(Result, function (key, value) {
+                            $("#CityID").append($("<option></option>").val(value.cityID).html(value.cityName));
+                        });
+                    },
+                    error: function (err) {
+                        alert("Error white fetch data");
+                    }
+
+                }
+            )
+        }
+    }
+</script>
