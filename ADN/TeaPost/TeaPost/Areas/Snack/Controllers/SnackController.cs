@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.Snack.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.Snack;
 using TeaPost.DAL.Tea;
 
 namespace TeaPost.Areas.Snack.Controllers
 {
     [Area("Snack")]
+    
     public class SnackController : Controller
     {
         Snack_DAL dalSnack = new Snack_DAL();
@@ -54,6 +56,24 @@ namespace TeaPost.Areas.Snack.Controllers
 
         public IActionResult SaveSnack(SnackModel model)
         {
+            if (model.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, model.File.FileName);
+                model.SnackImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + model.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
             if (model.SnackID == 0)
             {
                 DataTable dt = dalSnack.dbo_PR_PR_INSERT_SNACK(model.SnackName, model.SnackImage, model.Price, model.BriefDescription, model.Size, model.Description, model.ShopID);
@@ -78,6 +98,16 @@ namespace TeaPost.Areas.Snack.Controllers
                 TempData["Data"] = "Record deleted successfully";
             }
             return RedirectToAction("SnackList");
+        }
+
+        #endregion
+
+        #region PR_Snack_Filter
+
+        public IActionResult PR_Snack_Filter(SnackModel model)
+        {
+            DataTable dt = dalSnack.dbo_PR_Snack_Filter(model);
+            return View("SnackList", dt);
         }
 
         #endregion

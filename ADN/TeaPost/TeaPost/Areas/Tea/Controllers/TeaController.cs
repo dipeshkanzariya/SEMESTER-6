@@ -2,11 +2,13 @@
 using System.Data;
 using TeaPost.Areas.Shop.Models;
 using TeaPost.Areas.Tea.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.Tea;
 
 namespace TeaPost.Areas.Tea.Controllers
 {
     [Area("Tea")]
+    
     public class TeaController : Controller
     {
         Tea_DAL dalTea = new Tea_DAL();
@@ -55,6 +57,24 @@ namespace TeaPost.Areas.Tea.Controllers
 
         public IActionResult SaveTea(TeaModel model)
         {
+            if(model.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if(!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, model.File.FileName);
+                model.TeaImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + model.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
             if (model.TeaID == 0)
             {
                 DataTable dt = dalTea.dbo_PR_INSERT_TEA(model.TeaName, model.TeaImage, model.Price, model.BriefDescription, model.Weight, model.Stock, model.Description, model.ShopID);

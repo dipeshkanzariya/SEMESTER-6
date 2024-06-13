@@ -50,7 +50,7 @@
 @foreach (DataRow dr in Model.Rows)
 {
     <div class="Container-fluid">
-        <img src="@dr["ShopImage"]" />
+        <img src="@Url.Content(dr["ShopImage"].ToString())" />
     </div>
 
     <div class="container mt-5">

@@ -1937,6 +1937,14 @@
       "PackagePath": "staticwebassets\\web\\css\\style.css"
     },
     {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\1.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\1.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\1657336339113.jpeg",
+      "PackagePath": "staticwebassets\\web\\img\\1657336339113.jpeg"
+    },
+    {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\about-4.jpg",
       "PackagePath": "staticwebassets\\web\\img\\about-4.jpg"
     },
@@ -1961,12 +1969,40 @@
       "PackagePath": "staticwebassets\\web\\img\\about5.gif"
     },
     {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\apani-chai-ki-dukan-banner.png",
+      "PackagePath": "staticwebassets\\web\\img\\apani-chai-ki-dukan-banner.png"
+    },
+    {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\article.jpg",
       "PackagePath": "staticwebassets\\web\\img\\article.jpg"
     },
     {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\banner-desicafe-1.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\banner-desicafe-1.jpg"
+    },
+    {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\brewedtea.png",
       "PackagePath": "staticwebassets\\web\\img\\brewedtea.png"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\dk sign.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\dk sign.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\jeera-bhakhri.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\jeera-bhakhri.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\jeera-khakhra-2-min.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\jeera-khakhra-2-min.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\methi-bhakhri-min.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\methi-bhakhri-min.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\methi-khakhra-1-min.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\methi-khakhra-1-min.jpg"
     },
     {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\mr-dashani.png",
@@ -1975,6 +2011,10 @@
     {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\page-header.jpg",
       "PackagePath": "staticwebassets\\web\\img\\page-header.jpg"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\placetotalk-slide-3.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\placetotalk-slide-3.jpg"
     },
     {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\product-1.jpg",
@@ -2007,6 +2047,10 @@
     {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\shopDescription.png",
       "PackagePath": "staticwebassets\\web\\img\\shopDescription.png"
+    },
+    {
+      "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\standard-masala-tea.jpg",
+      "PackagePath": "staticwebassets\\web\\img\\standard-masala-tea.jpg"
     },
     {
       "Id": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\wwwroot\\web\\img\\store-product-1.jpg",

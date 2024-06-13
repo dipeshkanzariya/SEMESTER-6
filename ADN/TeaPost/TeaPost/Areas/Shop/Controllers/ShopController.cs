@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.Shop.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.Shop;
 
 namespace TeaPost.Areas.Shop.Controllers
 {
     [Area("Shop")]
+    [CheckAccess]
     public class ShopController : Controller
     {
         Shop_DAL dalShop = new Shop_DAL();
@@ -51,6 +53,24 @@ namespace TeaPost.Areas.Shop.Controllers
 
         public IActionResult ShopSave(ShopModel model)
         {
+            if(model.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, model.File.FileName);
+                model.ShopImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + model.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
             if(model.ShopID == 0)
             {
                 DataTable dt = dalShop.dbo_PR_INSERT_SHOP(model.ShopName, model.ShopImage, model.ShopArea, model.SeatingCapacity, model.VentilationType, model.ShopDescription, model.BrewedTea);

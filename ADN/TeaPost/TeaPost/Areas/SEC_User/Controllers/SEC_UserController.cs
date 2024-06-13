@@ -4,11 +4,13 @@ using System.Data;
 using TeaPost.DAL.SEC_User;
 using TeaPost.DAL.State;
 using TeaPost.DAL.City;
+using TeaPost.BAL;
 
 namespace TeaPost.Areas.SEC_User.Controllers
 {
     [Area("SEC_User")]
     [Route("SEC_User/[controller]/[action]")]
+    [CheckAccess]
     public class SEC_UserController : Controller
     {
         SEC_UserDAL userDAL = new SEC_UserDAL();
@@ -82,6 +84,7 @@ namespace TeaPost.Areas.SEC_User.Controllers
                         HttpContext.Session.SetString("LastName", dr["LastName"].ToString());
                         HttpContext.Session.SetString("Gender", dr["Gender"].ToString());
                         HttpContext.Session.SetString("BirthDate", dr["BirthDate"].ToString());
+                        HttpContext.Session.SetString("ProfileImage", dr["ProfileImage"].ToString());
                         HttpContext.Session.SetString("PassWord", dr["PassWord"].ToString());
                         HttpContext.Session.SetString("CityID", dr["CityID"].ToString());
                         HttpContext.Session.SetString("IsAdmin", dr["IsAdmin"].ToString());
@@ -123,7 +126,7 @@ namespace TeaPost.Areas.SEC_User.Controllers
         public IActionResult Register(SEC_UserModel sEC_UserModel)
         {
             SEC_UserDAL sEC_UserDAL = new SEC_UserDAL();
-            bool IsSuccess = sEC_UserDAL.dbo_PR_SEC_User_Register(sEC_UserModel.UserName, sEC_UserModel.Email, sEC_UserModel.PhoneNo, sEC_UserModel.FirstName, sEC_UserModel.LastName, sEC_UserModel.Gender, sEC_UserModel.BirthDate, sEC_UserModel.PassWord,sEC_UserModel.CityID, sEC_UserModel.IsAdmin, sEC_UserModel.IsActive);
+            bool IsSuccess = sEC_UserDAL.dbo_PR_SEC_User_Register(sEC_UserModel.UserName, sEC_UserModel.Email, sEC_UserModel.PhoneNo, sEC_UserModel.FirstName, sEC_UserModel.LastName, sEC_UserModel.Gender, sEC_UserModel.BirthDate,sEC_UserModel.ProfileImage, sEC_UserModel.PassWord,sEC_UserModel.CityID, sEC_UserModel.IsAdmin, sEC_UserModel.IsActive);
             if (IsSuccess)
             {
                 return RedirectToAction("SEC_UserLogin");
@@ -159,6 +162,7 @@ namespace TeaPost.Areas.SEC_User.Controllers
                     model.LastName = dr["LastName"].ToString();
                     model.Gender = dr["Gender"].ToString();
                     model.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
+                    model.ProfileImage = dr["ProfileImage"].ToString();
                     model.PassWord = dr["PassWord"].ToString();
                     model.CityID = Convert.ToInt32(dr["CityID"]);
                     model.IsAdmin = Convert.ToBoolean(dr["IsAdmin"]);
@@ -175,14 +179,32 @@ namespace TeaPost.Areas.SEC_User.Controllers
 
         public IActionResult SEC_UserSave(SEC_UserModel model)
         {
+            if(model.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, model.File.FileName);
+                model.ProfileImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + model.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
             if(model.UserID == 0)
             {
-                DataTable dt = userDAL.dbo_PR_INSERT_MST_USER(model.UserName, model.Email, model.PhoneNo, model.FirstName, model.LastName, model.Gender, model.BirthDate, model.PassWord, model.CityID, model.IsAdmin, model.IsActive);
+                DataTable dt = userDAL.dbo_PR_INSERT_MST_USER(model.UserName, model.Email, model.PhoneNo, model.FirstName, model.LastName, model.Gender, model.BirthDate,model.ProfileImage, model.PassWord, model.CityID, model.IsAdmin, model.IsActive);
                 TempData["Data"] = "Record inserted successfully";
             }
             else
             {
-                DataTable dt = userDAL.dbo_PR_UPDATE_BY_PK_MST_USER(model.UserID, model.UserName, model.Email, model.PhoneNo, model.FirstName, model.LastName, model.Gender, model.BirthDate, model.PassWord, model.CityID, model.IsAdmin, model.IsActive);
+                DataTable dt = userDAL.dbo_PR_UPDATE_BY_PK_MST_USER(model.UserID, model.UserName, model.Email, model.PhoneNo, model.FirstName, model.LastName, model.Gender, model.BirthDate,model.ProfileImage, model.PassWord, model.CityID, model.IsAdmin, model.IsActive);
                 TempData["Data"] = "Record updated successfully";
             }
             return RedirectToAction("UserList");

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.City.Models;
 using TeaPost.Areas.Franchise.Models;
@@ -103,6 +104,7 @@ namespace TeaPost.Areas.Franchise.Controllers
 
         #region LOC_CityForComboBox
 
+        [AllowAnonymous]
         public IActionResult LOC_CityForComboBox(int StateID)
         {
             List<LOC_CityDropDownModel> list = dalFranc.dbo_PR_Select_City_By_StateID(StateID);

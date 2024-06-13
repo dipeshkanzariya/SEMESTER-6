@@ -30,8 +30,8 @@
                             </div>
 
 
-                            <form class="row g-3 needs-validation" asp-area="SEC_User" asp-action="Register" asp-controller="SEC_User">
-
+                            <form class="row g-3 needs-validation" asp-area="SEC_User" asp-action="Register" asp-controller="SEC_User" enctype="multipart/form-data">
+                                @Html.HiddenFor(X => X.ProfileImage)
                                 <div class="col-12">
                                     <label for="yourUsername" class="form-label">Username</label>
                                     <div class="input-group has-validation">
@@ -180,7 +180,14 @@
 
         $("#StateID").empty();
         $("#StateID").append($("<option></option>").val("").html("Select State"));
+
+        $("#CityID").empty();
+        $("#CityID").append($("<option></option>").val("").html("Select City"));
+
+        
+
         if (CountryID !== "") {
+            alert(CountryID);
             $.ajax(
                 {
                     type: "POST",

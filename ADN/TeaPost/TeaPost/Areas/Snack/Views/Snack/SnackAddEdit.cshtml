@@ -10,8 +10,8 @@
 
     <hr />
 
-    <form class="pt-3" method="post" asp-area="Snack" asp-controller="Snack" asp-action="SaveSnack">
-
+    <form class="pt-3" method="post" asp-area="Snack" asp-controller="Snack" asp-action="SaveSnack" enctype="multipart/form-data">
+        @Html.HiddenFor(X => X.SnackImage)
         <div class="col my-4">
             <span class="text-danger">*</span>
             <label>Snack Name</label>
@@ -22,7 +22,7 @@
         <div class="col my-4">
             <span class="text-danger">*</span>
             <label>Snack Image Link</label>
-            <input type="text" class="form-control" asp-for="SnackImage" placeholder="Image Link" aria-label="Last name">
+            <input type="file" class="form-control" asp-for="File" placeholder="Image Link" aria-label="Last name">
             <span asp-validation-for="SnackImage" class="text-danger"></span>
         </div>
 

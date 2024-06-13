@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Tea_Post.cshtml";
+}
+@model TeaPost.Models.UserModel;
+
+
+<div class="container border border-gray rounded p-5 mt-5 shadow">
+
+    <h2><i class="bi bi-gear me-2 pb-5" style="font-size: 25px"></i>User Profile</h2>
+
+    <hr />
+
+    <form class="pt-3 row g-3" method="post" asp-controller="User" asp-action="UserProfileUpdate" enctype="multipart/form-data">
+       <input type="hidden" name="CityID" value="@Model.CityID"/>
+       <input type="hidden" name="IsAdmin" value="@Model.IsAdmin"/>
+       <input type="hidden" name="IsActive" value="@Model.IsActive"/>
+       @Html.HiddenFor(X => X.ProfileImage)
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>First Name</label>
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" aria-label="First name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Last Name</label>
+            <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" aria-label="Last name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>Phone No.</label>
+            <input type="text" class="form-control" asp-for="PhoneNo" placeholder="Mobile No" aria-label="Mobile No">
+            <span asp-validation-for="PhoneNo" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>User Name</label>
+            <input type="text" class="form-control" asp-for="UserName" placeholder="UserName" aria-label="Mobile No">
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Email</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="Email" aria-label="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Birth Date</label>
+            <input type="date" class="form-control" asp-for="BirthDate" placeholder="Birth Date" aria-label="Birth Date">
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>PassWord</label>
+            <input type="text" class="form-control" asp-for="PassWord" placeholder="PassWord" aria-label="Birth Date">
+            <span asp-validation-for="PassWord" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 ">
+            <span class="text-danger">*</span>
+            <label>Gender</label>
+            <div class="d-flex">
+                <label class="d-flex form-control" for="male">
+                    <input type="radio" id="male" asp-for="Gender" value="Male" checked />
+                    <span class="ms-3">Male</span>
+                </label>
+                <label class="d-flex form-control ms-4" for="female">
+                    <input type="radio" id="female" asp-for="Gender" value="Female" />
+                    <span class="ms-3">Female</span>
+                </label>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>Profile Image</label>
+            <input type="file" class="form-control" asp-for="File" placeholder="UserName" aria-label="Mobile No">
+            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-12 mt-4">
+
+            <input type="hidden" asp-for="UserID" />
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+        </div>
+
+    </form>
+
+
+</div>

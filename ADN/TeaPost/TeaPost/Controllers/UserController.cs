@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Reflection;
 using TeaPost.Areas.SEC_User.Models;
 using TeaPost.DAL.Cart;
 using TeaPost.DAL.City;
@@ -24,6 +26,7 @@ namespace TeaPost.Controllers
         City_DAL dalCity = new City_DAL();
         Franchise_DAL dalFranc = new Franchise_DAL();
         Order_DAL dalOrder = new Order_DAL();
+        SEC_UserDAL dalUser = new SEC_UserDAL();
 
         #region Index
 
@@ -144,6 +147,7 @@ namespace TeaPost.Controllers
             return RedirectToAction("CartList");
         }
 
+        [AllowAnonymous]
         public IActionResult Franchise()
         {
             ViewBag.CountryList = dalState.dbo_PR_LOC_Country_ComboBox();
@@ -208,6 +212,7 @@ namespace TeaPost.Controllers
                         HttpContext.Session.SetString("LastName", dr["LastName"].ToString());
                         HttpContext.Session.SetString("Gender", dr["Gender"].ToString());
                         HttpContext.Session.SetString("BirthDate", dr["BirthDate"].ToString());
+                        HttpContext.Session.SetString("ProfileImage", dr["ProfileImage"].ToString());
                         HttpContext.Session.SetString("PassWord", dr["PassWord"].ToString());
                         HttpContext.Session.SetString("CityID", dr["CityID"].ToString());
                         HttpContext.Session.SetString("IsAdmin", dr["IsAdmin"].ToString());
@@ -240,7 +245,25 @@ namespace TeaPost.Controllers
         public IActionResult Register(SEC_UserModel sEC_UserModel)
         {
             SEC_UserDAL sEC_UserDAL = new SEC_UserDAL();
-            bool IsSuccess = sEC_UserDAL.dbo_PR_SEC_User_Register(sEC_UserModel.UserName, sEC_UserModel.Email, sEC_UserModel.PhoneNo, sEC_UserModel.FirstName, sEC_UserModel.LastName, sEC_UserModel.Gender, sEC_UserModel.BirthDate, sEC_UserModel.PassWord, sEC_UserModel.CityID, sEC_UserModel.IsAdmin, sEC_UserModel.IsActive);
+            if (sEC_UserModel.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, sEC_UserModel.File.FileName);
+                sEC_UserModel.ProfileImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + sEC_UserModel.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    sEC_UserModel.File.CopyTo(stream);
+                }
+            }
+            bool IsSuccess = sEC_UserDAL.dbo_PR_SEC_User_Register(sEC_UserModel.UserName, sEC_UserModel.Email, sEC_UserModel.PhoneNo, sEC_UserModel.FirstName, sEC_UserModel.LastName, sEC_UserModel.Gender, sEC_UserModel.BirthDate,sEC_UserModel.ProfileImage, sEC_UserModel.PassWord, sEC_UserModel.CityID, sEC_UserModel.IsAdmin, sEC_UserModel.IsActive);
             if (IsSuccess)
             {
                 return RedirectToAction("SEC_UserLogin");
@@ -324,15 +347,37 @@ namespace TeaPost.Controllers
             return RedirectToAction("OrderList");
         }
 
-        public IActionResult OrderDetailsFromCart()
+        public IActionResult OrderDetailsFromCart(int OrderID)
         {
             ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
-            return View();
+                return View();
+        }
+
+        public IActionResult OrderAddressUpdateForm(int OrderID)
+        {
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
+            if (OrderID != null)
+            {
+                DataTable dt = dalOrder.dbo_PR_SELECT_BY_PK_ORDER(OrderID);
+
+                OrderModel model = new OrderModel();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    model.OrderID = Convert.ToInt32(dr["OrderID"]);
+                    model.OrderAddress = dr["OrderAddress"].ToString();
+                }
+                return View(model);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult InsertOrderFromCart(string Address)
         {
-
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
             DataTable dt = dalCart.dbo_PR_SELECT_ALL_CART();
             foreach (DataRow dr in dt.Rows)
             {
@@ -342,6 +387,21 @@ namespace TeaPost.Controllers
             return RedirectToAction("DeleteCartByUserID");
         }
 
+        public IActionResult OrderAddressUpdate(string Address,int OrderID)
+        {
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
+            if (OrderID != null)
+            {
+                DataTable dt = dalOrder.dbo_PR_SELECT_BY_PK_ORDER(OrderID);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataTable updatedOrder = dalOrder.dbo_PR_UPDATE_ORDER(OrderID, Address, "pending");
+                    return RedirectToAction("OrderList",updatedOrder);
+                }
+            }
+                return View();
+        }
+
         public IActionResult DeleteCartByUserID()
         {
             if (Convert.ToBoolean(dalCart.dbo_PR_DELETE_ALL_FROM_CART_BY_USERID()))
@@ -349,6 +409,72 @@ namespace TeaPost.Controllers
 
             }
             return RedirectToAction("OrderList");
+        }
+
+        public IActionResult UserProfile(int UserID)
+        {
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
+            DataTable dt = dalUser.dbo_PR_SELECT_BY_PK_MST_USER(UserID);
+            return View(dt);
+        }
+
+        public IActionResult UserProfileUpdateForm(int UserID)
+        {
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
+            if (UserID != null)
+            {
+                DataTable dt = dalUser.dbo_PR_SELECT_BY_PK_MST_USER(UserID);
+
+                UserModel model = new UserModel();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    model.UserID = Convert.ToInt32(dr["UserID"]);
+                    model.UserName = dr["UserName"].ToString();
+                    model.Email = dr["Email"].ToString();
+                    model.PhoneNo = dr["PhoneNo"].ToString();
+                    model.FirstName = dr["FirstName"].ToString();
+                    model.LastName = dr["LastName"].ToString();
+                    model.Gender = dr["Gender"].ToString();
+                    model.PassWord = dr["PassWord"].ToString();
+                    model.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
+                    model.ProfileImage = dr["ProfileImage"].ToString();
+                    model.CityID = Convert.ToInt32(dr["CityID"]);
+                    model.IsAdmin = Convert.ToBoolean(dr["IsAdmin"]);
+                    model.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                }
+                return View(model);
+            }
+            return View();
+        }
+
+        public IActionResult UserProfileUpdate(int UserID, string UserName, string Email, String PhoneNo, String FirstName, string LastName, string Gender, DateTime BirthDate,string ProfileImage, string PassWord, int CityID, bool IsAdmin, bool IsActive, UserModel model)
+        {
+            ViewBag.ShopList = dalTea.dbo_PR_Shop_ComboBox();
+            if (model.File != null)
+            {
+                string FilePath = "wwwroot/web/img";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileNameWithPath = Path.Combine(path, model.File.FileName);
+                ProfileImage = "~" + FilePath.Replace("wwwroot/", "/") + "/" + model.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
+            if (UserID != null)
+            {
+                DataTable dt = dalUser.dbo_PR_UPDATE_BY_PK_MST_USER(UserID, UserName, Email, PhoneNo, FirstName, LastName, Gender, BirthDate,ProfileImage, PassWord, CityID, IsAdmin, IsActive);
+                return RedirectToAction("UserProfile", new { UserID, dt });
+            }
+            return View();
         }
     }
 }

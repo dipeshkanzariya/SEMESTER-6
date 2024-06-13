@@ -10,6 +10,8 @@ namespace TeaPost.Areas.Snack.Models
 
         public string SnackImage { get; set;}
 
+        public IFormFile File { get; set;}
+
         public decimal Price { get; set;}
 
         public string BriefDescription { get; set;}

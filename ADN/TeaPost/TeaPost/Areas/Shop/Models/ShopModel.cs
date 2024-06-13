@@ -8,6 +8,8 @@
 
         public string ShopImage { get; set; }
 
+        public IFormFile File { get; set; }
+
         public string ShopArea { get; set; }
 
         public string SeatingCapacity { get; set; }

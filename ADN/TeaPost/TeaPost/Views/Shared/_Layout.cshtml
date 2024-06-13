@@ -25,6 +25,7 @@
     <link href="~/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="~/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="~/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
 
     <!-- Template Main CSS File -->
     <link href="~/css/style.css" rel="stylesheet">
@@ -73,7 +74,10 @@
                         <span><i class="bi bi-person-fill text-primary"></i></span> @CV.UserName()
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <form method="post" asp-controller="home" asp-action="Profile">
+                            <input type="hidden" name="UserID" value="@CV.UserID()"/>
+                            <button type="submit" class="dropdown-item">Profile</button>
+                        </form>
                         <a asp-area="SEC_User" asp-controller="SEC_User" asp-action="LogOut" class="dropdown-item">Log Out</a>
                     </div>
                 </div>
@@ -192,8 +196,8 @@
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    @*     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>*@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> 
     <script>
         $(document).ready(function () {
             //alert("Hello");

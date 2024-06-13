@@ -137,7 +137,10 @@
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <div class="dropdown-item header-dropdown-button">@HttpContextAccessor.HttpContext.Session.GetString("UserName")</div>
+                                    <form method="post" asp-controller="User" asp-action="UserProfile">
+                                        <input type="hidden" name="UserID" value="@CV.UserID()"/>
+                                        <button type="submit" class="dropdown-item header-dropdown-button">@HttpContextAccessor.HttpContext.Session.GetString("UserName").ToUpper()</button>
+                                    </form>
                                     <a class="dropdown-item header-dropdown-button" asp-controller="User" asp-action="LogOut">Log Out</a>
                                 </div>
                             </div>

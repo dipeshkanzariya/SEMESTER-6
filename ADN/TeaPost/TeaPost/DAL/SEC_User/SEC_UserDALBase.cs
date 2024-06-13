@@ -56,7 +56,7 @@ namespace TeaPost.DAL.SEC_User
 
         #region dbo.PR_INSERT_MST_USER
 
-        public DataTable dbo_PR_INSERT_MST_USER(string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate, string PassWord, int CityID, bool IsAdmin, bool IsActive)
+        public DataTable dbo_PR_INSERT_MST_USER(string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate, string ProfileImage, string PassWord, int CityID, bool IsAdmin, bool IsActive)
         {
             try
             {
@@ -69,6 +69,7 @@ namespace TeaPost.DAL.SEC_User
                 sqlDb.AddInParameter(cmd, "@LastName", SqlDbType.NVarChar, LastName);
                 sqlDb.AddInParameter(cmd, "@Gender", SqlDbType.NVarChar, Gender);
                 sqlDb.AddInParameter(cmd, "@BirthDate", SqlDbType.DateTime, BirthDate);
+                sqlDb.AddInParameter(cmd, "@ProfileImage", SqlDbType.NVarChar, ProfileImage);
                 sqlDb.AddInParameter(cmd, "@PassWord", SqlDbType.NVarChar, PassWord);
                 sqlDb.AddInParameter(cmd, "@CityID", SqlDbType.Int, CityID);
                 sqlDb.AddInParameter(cmd, "@IsAdmin", SqlDbType.Bit, IsAdmin);
@@ -91,7 +92,7 @@ namespace TeaPost.DAL.SEC_User
 
         #region dbo.PR_UPDATE_BY_PK_MST_USER
 
-        public DataTable dbo_PR_UPDATE_BY_PK_MST_USER(int UserID, string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate, string PassWord, int CityID, bool IsAdmin, bool IsActive)
+        public DataTable dbo_PR_UPDATE_BY_PK_MST_USER(int UserID, string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate,string ProfileImage, string PassWord, int CityID, bool IsAdmin, bool IsActive)
         {
             try
             {
@@ -105,6 +106,7 @@ namespace TeaPost.DAL.SEC_User
                 sqlDb.AddInParameter(cmd, "@LastName", SqlDbType.NVarChar, LastName);
                 sqlDb.AddInParameter(cmd, "@Gender", SqlDbType.NVarChar, Gender);
                 sqlDb.AddInParameter(cmd, "@BirthDate", SqlDbType.DateTime, BirthDate);
+                sqlDb.AddInParameter(cmd, "@ProfileImage", SqlDbType.NVarChar, ProfileImage);
                 sqlDb.AddInParameter(cmd, "@PassWord", SqlDbType.NVarChar, PassWord);
                 sqlDb.AddInParameter(cmd, "@CityID", SqlDbType.Int, CityID);
                 sqlDb.AddInParameter(cmd, "@IsAdmin", SqlDbType.Bit, IsAdmin);
@@ -170,7 +172,7 @@ namespace TeaPost.DAL.SEC_User
         #endregion
 
         #region Method: dbo_PR_SEC_User_Register
-        public bool dbo_PR_SEC_User_Register(string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate, string PassWord, int CityID, bool IsAdmin, bool IsActive)
+        public bool dbo_PR_SEC_User_Register(string UserName, string Email, string PhoneNo, string FirstName, string LastName, string Gender, DateTime BirthDate,string ProfileImage, string PassWord, int CityID, bool IsAdmin, bool IsActive)
         {
             try
             {
@@ -196,6 +198,7 @@ namespace TeaPost.DAL.SEC_User
                     sqlDB.AddInParameter(dbCMD1, "LastName", SqlDbType.NVarChar, LastName);
                     sqlDB.AddInParameter(dbCMD1, "Gender", SqlDbType.NVarChar, Gender);
                     sqlDB.AddInParameter(dbCMD1, "BirthDate", SqlDbType.DateTime, BirthDate);
+                    sqlDB.AddInParameter(dbCMD1, "ProfileImage", SqlDbType.NVarChar, ProfileImage);
                     sqlDB.AddInParameter(dbCMD1, "PassWord", SqlDbType.NVarChar, PassWord);
                     sqlDB.AddInParameter(dbCMD1, "CityID", SqlDbType.Int, CityID);
                     sqlDB.AddInParameter(dbCMD1, "IsAdmin", SqlDbType.Bit, IsAdmin);

@@ -8,6 +8,8 @@
 
         public string TeaImage { get; set;}
 
+        public IFormFile File { get; set;}
+
         public decimal Price { get; set;}
 
         public string BriefDescription { get; set;}
@@ -22,8 +24,8 @@
 
         public string ShopName { get; set;}
 
-        public DateTime Cretaed { get; set;}
+        public DateTime? Cretaed { get; set;}
 
-        public DateTime Modified { get; set;}
+        public DateTime? Modified { get; set;}
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.Country.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.Country;
 
 namespace TeaPost.Areas.Country.Controllers
 {
     [Area("Country")]
+    //[CheckAccess]
     public class LOC_CountryController : Controller
     {
         LOC_CountryDAL dalLOC_Country = new LOC_CountryDAL();

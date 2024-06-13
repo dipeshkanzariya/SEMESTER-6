@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\SEM 6\\ADN\\project\\TeaPost\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0DCCC6A3-D4AD-4DE9-9BD4-CFB12B202207}|TeaPost\\TeaPost.csproj|e:\\sem 6\\adn\\project\\teapost\\teapost\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DCCC6A3-D4AD-4DE9-9BD4-CFB12B202207}|TeaPost\\TeaPost.csproj|solutionrelative:teapost\\views\\home\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DCCC6A3-D4AD-4DE9-9BD4-CFB12B202207}|TeaPost\\TeaPost.csproj|e:\\sem 6\\adn\\project\\teapost\\teapost\\views\\user\\userprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DCCC6A3-D4AD-4DE9-9BD4-CFB12B202207}|TeaPost\\TeaPost.csproj|solutionrelative:teapost\\views\\user\\userprofile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserProfile.cshtml",
+              "DocumentMoniker": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\Views\\User\\UserProfile.cshtml",
+              "RelativeDocumentMoniker": "TeaPost\\Views\\User\\UserProfile.cshtml",
+              "ToolTip": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\Views\\User\\UserProfile.cshtml",
+              "RelativeToolTip": "TeaPost\\Views\\User\\UserProfile.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAB4AAACBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-21T17:46:59.465Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\Views\\Home\\Profile.cshtml",
+              "RelativeDocumentMoniker": "TeaPost\\Views\\Home\\Profile.cshtml",
+              "ToolTip": "E:\\SEM 6\\ADN\\project\\TeaPost\\TeaPost\\Views\\Home\\Profile.cshtml",
+              "RelativeToolTip": "TeaPost\\Views\\Home\\Profile.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAYwBcAAABgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-21T17:40:23.728Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

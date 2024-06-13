@@ -120,6 +120,9 @@
 
         $("#StateID").empty();
         $("#StateID").append($("<option></option>").val("").html("Select State"));
+
+        $("#CityID").empty();
+        $("#CityID").append($("<option></option>").val("").html("Select City"));
         if (CountryID !== "") {
             $.ajax(
                 {

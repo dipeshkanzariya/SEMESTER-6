@@ -15,9 +15,12 @@ namespace TeaPost.Areas.SEC_User.Models
 
         public string PhoneNo { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
 
+        public string? ProfileImage { get; set; }
+
+        public IFormFile File { get; set; }
         public string Gender { get; set; }
 
         public DateTime BirthDate { get; set; }

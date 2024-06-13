@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Tea_Post.cshtml";
+}
+@model TeaPost.Models.OrderModel;
+
+<div class="container border border-gray rounded p-5 mt-5 shadow">
+
+    <h2><i class="bi bi-gear me-2 pb-5" style="font-size: 25px"></i>Order Details</h2>
+
+    <hr />
+
+    <form class="pt-3" method="post" asp-controller="User" asp-action="OrderAddressUpdate">
+        <input type="hidden" name="OrderID" value="@Model.OrderID"/>
+        <div class="col my-4">
+            <label>Address</label>
+            <input type="text" class="form-control" asp-for="OrderAddress" value="@Model.OrderAddress" name="Address" placeholder="Enter delivery address here !!" aria-label="First name">
+            <span asp-validation-for="OrderAddress" class="text-danger"></span>
+        </div>
+
+        <div class="col mt-4">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+
+    </form>
+
+
+</div>@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

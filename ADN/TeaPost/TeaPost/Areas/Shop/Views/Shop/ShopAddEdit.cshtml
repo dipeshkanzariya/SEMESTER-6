@@ -10,58 +10,58 @@
 
     <hr />
 
-    <form class="pt-3" method="post" asp-area="Shop" asp-controller="Shop" asp-action="ShopSave">
-
-        <div class="col my-4">
+    <form class="pt-3 row g-3" method="post" asp-area="Shop" asp-controller="Shop" asp-action="ShopSave" enctype="multipart/form-data">
+        @Html.HiddenFor(X =>X.ShopImage)
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label>Shop Name</label>
             <input type="text" class="form-control" asp-for="ShopName" placeholder="Shop Name" aria-label="First name">
             <span asp-validation-for="ShopName" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
-            <span class="text-danger">*</span>
-            <label>Shop Image</label>
-            <input type="text" class="form-control" asp-for="ShopImage" placeholder="Shop Image" aria-label="Last name">
-            <span asp-validation-for="ShopImage" class="text-danger"></span>
-        </div>
-
-        <div class="col my-4">
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label>Shop Area</label>
             <input type="text" class="form-control" asp-for="ShopArea" placeholder="Shop Area" aria-label="Last name">
             <span asp-validation-for="ShopArea" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-6">
+            <span class="text-danger">*</span>
+            <label>Shop Image</label>
+            <input type="file" class="form-control" asp-for="File" placeholder="Shop Image" aria-label="Last name">
+            <span asp-validation-for="ShopImage" class="text-danger"></span>
+        </div>
+
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label>Seating Capacity</label>
             <input type="text" class="form-control" asp-for="SeatingCapacity" placeholder="Seating Capacity" aria-label="Last name">
             <span asp-validation-for="SeatingCapacity" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label>Ventilation Type</label>
             <input type="text" class="form-control" asp-for="VentilationType" placeholder="Ventilation Type" aria-label="Last name">
             <span asp-validation-for="VentilationType" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label>Brewed Tea</label>
             <input type="text" class="form-control" asp-for="BrewedTea" placeholder="Brewed Tea" aria-label="Last name">
             <span asp-validation-for="BrewedTea" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-12">
             <span class="text-danger">*</span>
             <label>Description</label>
             <input type="text" class="form-control" asp-for="ShopDescription" placeholder="Description" aria-label="Last name">
             <span asp-validation-for="ShopDescription" class="text-danger"></span>
         </div>
 
-        <div class="col mt-4">
+        <div class="col my-4">
 
             <input type="hidden" asp-for="ShopID" />
             <button class="btn btn-primary" type="submit">Submit</button>

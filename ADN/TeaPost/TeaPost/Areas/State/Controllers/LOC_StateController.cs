@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.State.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.State;
 
 namespace TeaPost.Areas.State.Controllers
 {
     [Area("State")]
-
+    //[CheckAccess]
     public class LOC_StateController : Controller
     {
         State_DAL dalState = new State_DAL();

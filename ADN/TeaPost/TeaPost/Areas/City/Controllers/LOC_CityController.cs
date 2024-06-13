@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.City.Models;
 using TeaPost.Areas.State.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.City;
 using TeaPost.DAL.State;
 
 namespace TeaPost.Areas.City.Controllers
 {
     [Area("City")]
+    //[CheckAccess]   
     public class LOC_CityController : Controller
     {
         City_DAL dalCity = new City_DAL();
@@ -82,6 +85,7 @@ namespace TeaPost.Areas.City.Controllers
 
         #region StatesForComboBox
 
+        [AllowAnonymous]
         public IActionResult StatesForComboBox(int? CountryID)
         {
             List<LOC_StateDropDownModel> list = dalCity.dbo_PR_State_StateByCountryID(CountryID);

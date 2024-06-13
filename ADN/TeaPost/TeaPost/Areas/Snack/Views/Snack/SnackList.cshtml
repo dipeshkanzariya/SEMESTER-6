@@ -62,48 +62,49 @@
 
     @*<input type="text" placeholder="Search here" class="border border-dark d-block rounded ps-3 pe-5 py-2 ms-auto my-3" />*@
 
-    <form asp-area="Country" asp-controller="LOC_Country">
+    <form asp-area="Snack" asp-controller="Snack">
         <div class="row">
             <div class="w-25 ms-auto my-3">
                 <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
                 <div class="input-group">
-                    <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
-                    <input type="text" class="form-control" id="CountryName" name="CountryName" placeholder="Search Country Name here">
+                    <input type="text" class="form-control" id="SnackName" name="SnackName" placeholder="Search Snack Name here">
                     @* <input type="hidden" name="CountryName" value="CountryName" />*@
                 </div>
             </div>
 
-            <div class="w-25 my-3">
+            <div class="w-25 ms-auto my-3">
                 <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
                 <div class="input-group">
-                    <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>
-                    <input type="text" class="form-control" id="CountryCode" name="CountryCode" placeholder="Search Country Code here">
-                    @*<input type="hidden" name="CountryCode" value="CountryCode" />*@
+                    <input type="text" class="form-control" id="Price" name="Price" placeholder="Search Price here">
+                    @* <input type="hidden" name="CountryName" value="CountryName" />*@
+                </div>
+            </div>
+
+            <div class="w-25 ms-auto my-3">
+                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="Size" name="Size" placeholder="Search Size here">
+                    @* <input type="hidden" name="CountryName" value="CountryName" />*@
                 </div>
             </div>
 
             <div class="w-auto my-3">
                 <div class="input-group">
-                    <input type="submit" asp-action="LOC_CountryFilter" class="btn btn-primary" id="" value="Apply Filter" placeholder="Search Country Code here">
+                    <input type="submit" asp-action="PR_Snack_Filter" class="btn btn-primary" id="" value="Apply Filter">
                 </div>
             </div>
 
             <div class="w-auto my-3">
                 <div class="input-group">
-                    <input type="submit" asp-action="LOC_CountryList" class="btn text-white" style="background-color: rgba(10 , 10 , 10 , 0.5)" id="" value="Clear Filter" placeholder="Search Country Code here">
+                    <input type="submit" asp-action="SnackList" class="btn text-white" style="background-color: rgba(10 , 10 , 10 , 0.5)" id="" value="Clear Filter" placeholder="Search Country Code here">
                 </div>
             </div>
 
         </div>
     </form>
 
-    <div class="line ms-auto my-3"></div>
-
     <div>
         <div class="w-25 ms-auto my-3 col">
-            <p class="text-secondary">
-                <span class="ms-1 me-2">&#x2022</span> Search With JQuery
-            </p>
             <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
             <div class="input-group">
                 <div class="input-group-text bg-transparent" style="font-size: 15px"><i class="bi bi-search"></i></div>

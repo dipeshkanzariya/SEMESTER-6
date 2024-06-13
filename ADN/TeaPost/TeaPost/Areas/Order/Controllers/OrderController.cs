@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TeaPost.Areas.Order.Models;
+using TeaPost.BAL;
 using TeaPost.DAL.Order;
 
 namespace TeaPost.Areas.Order.Controllers
 {
     [Area("Order")]
+    [CheckAccess]
     public class OrderController : Controller
     {
         Order_DAL dalOrder = new Order_DAL();

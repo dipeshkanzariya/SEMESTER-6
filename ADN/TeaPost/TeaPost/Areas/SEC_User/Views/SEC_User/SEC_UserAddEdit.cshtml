@@ -10,75 +10,75 @@
 
     <hr />
 
-    <form class="pt-3" method="post" asp-area="SEC_User" asp-controller="SEC_User" asp-action="SEC_UserSave">
-
-        <div class="col my-4">
-            <span class="text-danger">*</span>
-            <label>User Name</label>
-            <input type="text" class="form-control" asp-for="UserName" placeholder="UserName" aria-label="First name">
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
-
-        <div class="col my-4">
-            <span class="text-danger">*</span>
-            <label>Email</label>
-            <input type="text" class="form-control" asp-for="Email" placeholder="email" aria-label="Last name">
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-
-        <div class="col my-4">
-            <span class="text-danger">*</span>
-            <label>Phone No.</label>
-            <input type="text" class="form-control" asp-for="PhoneNo" placeholder="Phone no." aria-label="Last name">
-            <span asp-validation-for="PhoneNo" class="text-danger"></span>
-        </div>
-
-        <div class="col my-4">
+    <form class="pt-3 row g-3" method="post" asp-area="SEC_User" asp-controller="SEC_User" asp-action="SEC_UserSave" enctype="multipart/form-data">
+        @Html.HiddenFor(X => X.ProfileImage)
+        <div class="col-4">
             <span class="text-danger">*</span>
             <label>First Name</label>
             <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" aria-label="Last name">
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
             <span class="text-danger">*</span>
             <label>Last Name</label>
             <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" aria-label="Last name">
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
             <span class="text-danger">*</span>
-            <label> Gender</label>
-            @* <input type="text" placeholder="Enter Gender" asp-for="Gender" class="form-control" value="@Model.Gender" /> *@
-            <div class="d-flex mt-3">
-                <div class="d-flex">
-                    <input type="radio" asp-for="Gender" value="Male" checked />
-                    <span class="ms-3">Male</span>
-                </div>
-                <div class="d-flex ms-4">
-                    <input type="radio" asp-for="Gender" value="Female" />
-                    <span class="ms-3">Female</span>
-                </div>
-            </div>
-            <span asp-validation-for="Gender" class="text-danger"></span>
+            <label>Phone No.</label>
+            <input type="text" class="form-control" asp-for="PhoneNo" placeholder="Phone no." aria-label="Last name">
+            <span asp-validation-for="PhoneNo" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
             <span class="text-danger">*</span>
-            <label>Birth Date</label>
-            <input type="date" class="form-control" asp-for="BirthDate" placeholder="dd/mm/yyyy" aria-label="Last name">
-            <span asp-validation-for="BirthDate" class="text-danger"></span>
+            <label>User Name</label>
+            <input type="text" class="form-control" asp-for="UserName" placeholder="UserName" aria-label="First name">
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>Email</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="email" aria-label="Last name">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="col-4">
             <span class="text-danger">*</span>
             <label>PassWord</label>
             <input type="text" class="form-control" asp-for="PassWord" placeholder="PassWord" aria-label="Last name">
             <span asp-validation-for="PassWord" class="text-danger"></span>
         </div>
 
-        <div class="col my-4 form-group">
+        <div class="col-6">
+            <span class="text-danger">*</span>
+            <label>Birth Date</label>
+            <input type="date" class="form-control" asp-for="BirthDate" placeholder="dd/mm/yyyy" aria-label="Last name">
+            <span asp-validation-for="BirthDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-6">
+            <span class="text-danger">*</span>
+            <label> Gender</label>
+            @* <input type="text" placeholder="Enter Gender" asp-for="Gender" class="form-control" value="@Model.Gender" /> *@
+            <div class="d-flex">
+                <label class="d-flex form-control w-25" for="male">
+                    <input type="radio" asp-for="Gender" value="Male" id="male" checked />
+                    <span class="ms-3">Male</span>
+                </label>
+                <label class="d-flex ms-1 form-control w-25" ifor="female">
+                    <input type="radio" asp-for="Gender" id="female" value="Female" />
+                    <span class="ms-3">Female</span>
+                </label>
+            </div>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="col-4 form-group">
             <span class="text-danger">*</span>
             <label>Country</label>
             <select class="form-control" asp-for="CountryID" onchange="funcOnStateChange()" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID" , "CountryName"))">
@@ -87,7 +87,7 @@
             <span asp-validation-for="CountryID" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
             <span class="text-danger">*</span>
             <label>State</label>
             <select class="form-control" onchange="FuncOnCityChange()" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList, "StateID", "StateName"))">
@@ -96,7 +96,7 @@
             <span asp-validation-for="StateID" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-4">
             <span class="text-danger">*</span>
             <label>City</label>
             <select class="form-control" asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList, "CityID", "CityName"))">
@@ -105,36 +105,43 @@
             <span asp-validation-for="CityID" class="text-danger"></span>
         </div>
 
-        <div class="col my-4">
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label> Is Admin</label>
             @* <input type="text" placeholder="IS Active True or False" asp-for="IsActive" class="form-control" value="@Convert.ToBoolean(Model.IsActive)" /> *@
             <div class="d-flex mt-3">
-                <div class="d-flex">
-                    <input type="radio" asp-for="IsAdmin" value="true" checked />
+                <label class="d-flex form-control w-25" for="trueAdmin">
+                    <input type="radio" asp-for="IsAdmin" id="trueAdmin" value="true" checked />
                     <span class="ms-3">Yes</span>
-                </div>
-                <div class="d-flex ms-4">
-                    <input type="radio" asp-for="IsAdmin" value="false" />
+                </label>
+                <label class="d-flex form-control ms-1 w-25" for="falseAdmin">
+                    <input type="radio" asp-for="IsAdmin" id="falseAdmin" value="false" />
                     <span class="ms-3">No</span>
-                </div>
+                </label>
             </div>
         </div>
 
-        <div class="col my-4">
+        <div class="col-6">
             <span class="text-danger">*</span>
             <label> Is Active</label>
             @* <input type="text" placeholder="IS Active True or False" asp-for="IsActive" class="form-control" value="@Convert.ToBoolean(Model.IsActive)" /> *@
             <div class="d-flex mt-3">
-                <div class="d-flex">
-                    <input type="radio" asp-for="IsActive" value="true" checked />
+                <label class="d-flex form-control w-25" for="tureActive">
+                    <input type="radio" id="tureActive" asp-for="IsActive" value="true" checked />
                     <span class="ms-3">Yes</span>
-                </div>
-                <div class="d-flex ms-4">
-                    <input type="radio" asp-for="IsActive" value="false" />
+                </label>
+                <label class="d-flex form-control ms-1 w-25" for="falseActive">
+                    <input type="radio" asp-for="IsActive" value="false" id="falseActive" />
                     <span class="ms-3">No</span>
-                </div>
+                </label>
             </div>
+        </div>
+
+        <div class="col-4">
+            <span class="text-danger">*</span>
+            <label>Profile Image</label>
+            <input type="file" class="form-control" asp-for="File" placeholder="profile image" aria-label="Last name">
+            <span asp-validation-for="ProfileImage" class="text-danger"></span>
         </div>
 
         <div class="col mt-4">
@@ -162,6 +169,9 @@
 
         $("#StateID").empty();
         $("#StateID").append($("<option></option>").val("").html("Select State"));
+
+        $("#CityID").empty();
+        $("#CityID").append($("<option></option>").val("").html("Select City"));
         if (CountryID !== "") {
             $.ajax(
                 {
